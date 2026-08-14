@@ -39,7 +39,9 @@ def run():
 
             # Link user to the farm with their designated role
             db.session.add(FarmUser(farm_id=farm.id, user_id=user.id, role=user_data["role"]))
-            seeded_users.append((user_data["email"], user_data["password"], user_data["role"]))
+            role_val = user_data["role"].name if hasattr(user_data["role"], "name") else str(user_data["role"])
+            seeded_users.append((user_data["email"], user_data["password"], role_val))
+            # seeded_users.append((user_data["email"], user_data["password"], user_data["role"]))
 
         db.session.add_all(
             [
